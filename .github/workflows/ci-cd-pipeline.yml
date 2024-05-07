@@ -5,17 +5,15 @@ on:
     branches:
       - master
       - development
+      - deploy-to-ec2
   pull_request:
     branches:
       - master
       - development
+      - deploy-to-ec2
 
 env:
   AWS_REGION: ${{ secrets.AWS_REGION }}
-  ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
-  ECS_SERVICE: ${{ vars.ECS_SERVICE }}
-  ECS_CLUSTER: ${{ vars.ECS_CLUSTER }}
-  ECS_TASK_DEFINITION: ${{ vars.ECS_TASK_DEFINITION }}
   CONTAINER_NAME: ${{ vars.CONTAINER_NAME }}
 permissions:
   contents: read
@@ -51,9 +49,16 @@ jobs:
           name: built-artifacts
           path: menu-management-service/target/*.jar
 
+      - name: Login to DockerHub
+        run: docker login -u ${{secrets.DOCKERHUB_USERNAME}} -p ${{secrets.DOCKERHUB_PASSWORD}}
+      - name: Build docker image
+        run: docker build -t deborahfernando99/restaurant-management-system  .
+      - name: Publish image to dockerhub
+        run: docker push deborahfernando99/restaurant-management-system:latest
+
   deploy:
     name: Deploy
-    runs-on: ubuntu-latest
+    runs-on: aws-ec2
     needs: build
     if: github.ref == 'refs/heads/master' || github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
 
@@ -68,44 +73,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+      - name: Pull image from dockerhub
+        run: docker pull deborahfernando99/restaurant-management-system:latest
 
-      - name: Change to the project directory
-        run: cd menu-management-service
+      - name: Delete old container
+        run: docker rm -f menu-management-container
 
-      - name: Download built artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: built-artifacts
-          path: menu-management-service/target
-
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: latest
-        run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f menu-management-service/Dockerfile ./menu-management-service
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: ${{ env.ECS_TASK_DEFINITION }}
-          container-name: ${{ env.CONTAINER_NAME }}
-          image: ${{ steps.build-image.outputs.image }}
-
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
-          wait-for-service-stability: true
+      - name: Run docker container
+        run: docker run -d -p 8050:8050 --name menu-management-container deborahfernando99/restaurant-management-system:latest
