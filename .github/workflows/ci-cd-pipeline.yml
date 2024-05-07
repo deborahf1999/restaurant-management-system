@@ -65,7 +65,7 @@ jobs:
 
   deploy:
     name: Deploy
-    runs-on: aws-ec2
+    runs-on: ec2-user
     needs: build
     if: github.ref == 'refs/heads/master' || github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
 
