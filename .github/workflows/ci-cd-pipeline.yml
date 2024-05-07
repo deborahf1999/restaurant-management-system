@@ -58,8 +58,10 @@ jobs:
         run: docker login -u ${{secrets.DOCKERHUB_USERNAME}} -p ${{secrets.DOCKERHUB_PASSWORD}}
       - name: Build docker image
         run: docker build -t deborahfernando99/restaurant-management-system/menu-management-service .
+        working-directory: ./menu-management-service
       - name: Publish image to dockerhub
         run: docker push deborahfernando99/restaurant-management-system/menu-management-service:latest
+        working-directory: ./menu-management-service
 
   deploy:
     name: Deploy
