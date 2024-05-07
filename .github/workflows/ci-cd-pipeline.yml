@@ -37,7 +37,7 @@ jobs:
           echo "ISSUER_URI=${{ secrets.ISSUER_URI }}" >> $GITHUB_ENV
 
       - name: Change to the project directory
-        run: cd menu-management-service
+        run: cd ./menu-management-service
 
       - name: Build with Maven
         run: mvn clean install
