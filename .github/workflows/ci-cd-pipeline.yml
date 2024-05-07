@@ -61,6 +61,7 @@ jobs:
         working-directory: ./menu-management-service
       - name: Publish image to dockerhub
         run: docker push deborahf1999/restaurant-management-system/menu-management-service:latest
+        working-directory: ./menu-management-service
 
   deploy:
     name: Deploy
