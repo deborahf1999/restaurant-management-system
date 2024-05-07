@@ -57,10 +57,10 @@ jobs:
       - name: Login to DockerHub
         run: docker login -u ${{secrets.DOCKERHUB_USERNAME}} -p ${{secrets.DOCKERHUB_TOKEN}}
       - name: Build docker image
-        run: docker build -t deborahf1999/restaurant-management-system/menu-management-service .
+        run: docker build -t deborahf1999/restaurant-management-system .
         working-directory: ./menu-management-service
       - name: Publish image to dockerhub
-        run: docker push deborahf1999/restaurant-management-system/menu-management-service:latest
+        run: docker push deborahf1999/restaurant-management-system:latest
         working-directory: ./menu-management-service
 
   deploy:
@@ -81,10 +81,10 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Pull image from dockerhub
-        run: docker pull deborahf1999/restaurant-management-system/menu-management-service:latest
+        run: docker pull deborahf1999/restaurant-management-system:latest
 
       - name: Delete old container
         run: docker rm -f menu-management-container
 
       - name: Run docker container
-        run: docker run -d -p 8050:8050 --name menu-management-container deborahf1999/restaurant-management-system/menu-management-service:latest
+        run: docker run -d -p 8050:8050 --name menu-management-container deborahf1999/restaurant-management-system:latest
