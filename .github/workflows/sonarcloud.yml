@@ -42,4 +42,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           MONGO_DB_URI: ${{ secrets.DB_URI }}
           ISSUER_URI: ${{ secrets.ISSUER_URI }}
-        run: mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=deborahfernando99_restaurant-management-system
+        run: mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=deborahf1999_restaurant-management-system
