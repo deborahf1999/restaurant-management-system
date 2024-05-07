@@ -49,6 +49,10 @@ jobs:
           name: built-artifacts
           path: menu-management-service/target/*.jar
 
+      - name: view files
+        run: ls
+      - name: print working directory
+        run: pwd
       - name: Login to DockerHub
         run: docker login -u ${{secrets.DOCKERHUB_USERNAME}} -p ${{secrets.DOCKERHUB_PASSWORD}}
       - name: Build docker image
