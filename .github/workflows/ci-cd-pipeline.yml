@@ -87,4 +87,4 @@ jobs:
         run: docker rm -f menu-management-container
 
       - name: Run docker container
-        run: docker run -d -p 8050:8050 --name menu-management-container deborahf1999/restaurant-management-system/menu-management-service:latest
+        run: docker run -d -p 8050:8050 --name menu-management-container deborahf1999/restaurant-management-system/menu-management-service:latest 
