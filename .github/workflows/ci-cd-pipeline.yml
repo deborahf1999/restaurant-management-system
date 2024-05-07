@@ -53,6 +53,7 @@ jobs:
         run: ls
       - name: print working directory
         run: pwd
+        working-directory: ./menu-management-service
       - name: Login to DockerHub
         run: docker login -u ${{secrets.DOCKERHUB_USERNAME}} -p ${{secrets.DOCKERHUB_PASSWORD}}
       - name: Build docker image
