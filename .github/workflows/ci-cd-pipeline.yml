@@ -58,7 +58,7 @@ jobs:
       - name: Build docker image
         run: docker build -t deborahfernando99/restaurant-management-system/menu-management-service .
       - name: Publish image to dockerhub
-        run: docker push deborahfernando99/restaurant-management-system:latest
+        run: docker push deborahfernando99/restaurant-management-system/menu-management-service:latest
 
   deploy:
     name: Deploy
@@ -78,10 +78,10 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Pull image from dockerhub
-        run: docker pull deborahfernando99/restaurant-management-system:latest
+        run: docker pull deborahfernando99/restaurant-management-system/menu-management-service:latest
 
       - name: Delete old container
         run: docker rm -f menu-management-container
 
       - name: Run docker container
-        run: docker run -d -p 8050:8050 --name menu-management-container deborahfernando99/restaurant-management-system:latest
+        run: docker run -d -p 8050:8050 --name menu-management-container deborahfernando99/restaurant-management-system/menu-management-service:latest
