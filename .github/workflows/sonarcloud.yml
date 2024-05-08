@@ -40,6 +40,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          MONGO_DB_URI: ${{ secrets.DB_URI }}
-          ISSUER_URI: ${{ secrets.ISSUER_URI }}
-        run: mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=deborahf1999_restaurant-management-system
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=deborahf1999_restaurant-management-system
