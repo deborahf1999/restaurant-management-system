@@ -19,6 +19,38 @@ permissions:
   contents: read
 
 jobs:
+  push-app-image:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to private registry
+        uses: docker/login-action@v2
+        with:
+          registry: my.private.registry.com
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build the app image
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          context: .
+          file: menu-management-service/Dockerfile
+          platforms: linux/amd64
+          tags: my.private.registry.com/deborahf1999/restaurant-management-system:latest
+          secrets: |
+            "MONGO_DB_URI=${{ secrets.DB_URI }}"
+            "ISSUER_URI=${{ secrets.ISSUER_URI }}"
+
   build:
     name: Build
     runs-on: ubuntu-latest
