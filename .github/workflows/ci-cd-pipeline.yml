@@ -44,7 +44,7 @@ jobs:
         working-directory: ./menu-management-service
 
       - name: Install AWS CLI
-        uses: aws-actions/install-aws-cli@v4
+        uses: aws-actions/install-aws-cli@v2
 
       - name: Upload JAR to S3
         run: |
