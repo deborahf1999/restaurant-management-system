@@ -26,6 +26,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - run: mvn clean install
+
       - name: Login to private registry
         uses: docker/login-action@v2
         with:
