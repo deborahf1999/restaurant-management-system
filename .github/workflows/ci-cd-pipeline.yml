@@ -98,7 +98,6 @@ jobs:
 
       - name: Create Docker Secrets on EC2 (assuming SSH is configured)
         run: |
-          ssh ec2-user@35.172.193.69
           docker secret create MONGO_DB_URI "$DB_URI"
           docker secret create ISSUER_URI "$ISSUER_URI"
 
