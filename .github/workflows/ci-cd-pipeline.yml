@@ -43,6 +43,16 @@ jobs:
         run: mvn clean install
         working-directory: ./menu-management-service
 
+      - name: Upload JAR to S3
+        run: |
+          aws s3 cp menu-management-service/target/*.jar s3://my-bucket-aws-2/menu-management-service-0.0.1-SNAPSHOT.jar
+        env:
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            AWS_DEFAULT_REGION: ${{ env.AWS_REGION }}
+            MONGO_DB_URI: ${{ secrets.DB_URI }}
+            ISSUER_URI: ${{ secrets.ISSUER_URI }}
+
       - name: Upload built artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -88,13 +98,3 @@ jobs:
 
       - name: Run docker container
         run: docker run -d -p 8050:8050 --name menu-management-container deborahf1999/restaurant-management-system:latest
-
-      - name: Upload JAR to S3
-        run: |
-          aws s3 cp menu-management-service/target/*.jar s3://my-bucket-aws-2/menu-management-service-0.0.1-SNAPSHOT.jar
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ env.AWS_REGION }}
-          MONGO_DB_URI: ${{ secrets.DB_URI }}
-          ISSUER_URI: ${{ secrets.ISSUER_URI }}
