@@ -95,7 +95,7 @@ jobs:
 
       - name: Load Docker Secrets
         run: |
-          cd ..
+          cd ../github/workflows
           source dockersecrets.yml
           echo "DB_URI=$DB_URI"  # For debugging (optional)
 
