@@ -46,7 +46,7 @@ jobs:
       - name: Upload JAR to S3
         run: |
           aws s3 cp menu-management-service/target/*.jar s3://my-bucket-aws-2/menu-management-service-0.0.1-SNAPSHOT.jar
-          java -jar menu-management-service-0.0.1-SNAPSHOT.jar
+          aws java -jar menu-management-service-0.0.1-SNAPSHOT.jar
 
         env:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
