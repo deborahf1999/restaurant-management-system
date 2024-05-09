@@ -98,7 +98,7 @@ jobs:
           docker pull deborahf1999/restaurant-management-system:latest
           export MONGO_DB_URI
           export ISSUER_URI
-          echo "MONGO_DB_URI=DB_URI"  # For debugging (optional)
+          echo MONGO_DB_URI  # For debugging (optional)
         env:
           MONGO_DB_URI: ${{ secrets.DB_URI }}
           ISSUER_URI: ${{ secrets.ISSUER_URI }}
