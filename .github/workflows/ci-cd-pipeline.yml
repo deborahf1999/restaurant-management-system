@@ -98,6 +98,7 @@ jobs:
 
       - name: Create Docker Secrets on EC2 (assuming SSH is configured)
         run: |
+          docker swarm init
           docker secret create MONGO_DB_URI "$DB_URI" >> $GITHUB_ENV
           docker secret create ISSUER_URI "$ISSUER_URI" >> $GITHUB_ENV
 
