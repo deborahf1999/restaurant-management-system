@@ -68,9 +68,9 @@ jobs:
         run: docker login -u ${{secrets.DOCKERHUB_USERNAME}} -p ${{secrets.DOCKERHUB_TOKEN}}
       - name: Build docker image
         run: docker build -t deborahf1999/restaurant-management-system .
-        secrets: |
-          "MONGO_DB_URI=${{ secrets.DB_URI }}"
-          "ISSUER_URI=${{ secrets.ISSUER_URI }}"
+        env:
+          MONGO_DB_URI: ${{ secrets.DB_URI }}
+          ISSUER_URI: ${{ secrets.ISSUER_URI }}
 
         working-directory: ./menu-management-service
       - name: Publish image to dockerhub
