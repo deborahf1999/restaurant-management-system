@@ -50,7 +50,8 @@ jobs:
           secrets: |
             "MONGO_DB_URI=${{ secrets.DB_URI }}"
             "ISSUER_URI=${{ secrets.ISSUER_URI }}"
-        run: pwd
+
+      - run: pwd
 
   build:
     name: Build
