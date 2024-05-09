@@ -109,4 +109,4 @@ jobs:
       - name: Run the container on EC2
         run: |
           ssh ec2-user@35.172.193.69
-          sudo docker run -p 80:8050 --name menu-management-container -e DB_URI="$DB_URI" -e ISSUER_URI="$ISSUER_URI" deborahf1999/restaurant-management-system:latest
+          sudo docker run -p 80:8050 --name menu-management-container -e MONGO_DB_URI -e ISSUER_URI deborahf1999/restaurant-management-system:latest
