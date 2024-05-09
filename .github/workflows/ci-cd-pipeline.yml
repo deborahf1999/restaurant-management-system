@@ -71,6 +71,10 @@ jobs:
         working-directory: ./menu-management-service
       - name: Publish image to dockerhub
         run: docker push deborahf1999/restaurant-management-system:latest
+        env:
+          MONGO_DB_URI: ${{ secrets.DB_URI }}
+          ISSUER_URI: ${{ secrets.ISSUER_URI }}
+
         working-directory: ./menu-management-service
 
   deploy:
