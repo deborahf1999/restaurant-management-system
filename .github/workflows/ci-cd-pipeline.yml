@@ -99,8 +99,8 @@ jobs:
       - name: Create Docker Secrets on EC2 (assuming SSH is configured)
         run: |
           ssh ec2-user@35.172.193.69
-          sudo docker secret create MONGO_DB_URI "$DB_URI"
-          sudo docker secret create ISSUER_URI "$ISSUER_URI"
+          docker secret create MONGO_DB_URI "$DB_URI"
+          docker secret create ISSUER_URI "$ISSUER_URI"
 
       - name: Run the container on EC2
         run: docker run -p 8050:8050 --name menu-management-container --secret MONGO_DB_URI --secret ISSUER_URI deborahf1999/restaurant-management-system:latest
