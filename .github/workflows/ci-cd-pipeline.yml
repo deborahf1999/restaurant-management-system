@@ -95,11 +95,9 @@ jobs:
 
       - name: Load Docker Secrets
         run: |
-          cd ../github/workflows/
-          pwd
-          ls
           source dockersecrets.yml
           echo "DB_URI=$DB_URI"  # For debugging (optional)
+        working-directory: ../github/workflows
 
       - name: Pull image from dockerhub
         run: docker pull deborahf1999/restaurant-management-system:latest
