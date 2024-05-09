@@ -53,6 +53,9 @@ jobs:
             MONGO_DB_URI: ${{ secrets.DB_URI }}
             ISSUER_URI: ${{ secrets.ISSUER_URI }}
 
+      - name: run jar file
+        run: java -jar menu-management-service-0.0.1-SNAPSHOT.jar
+
       - name: Upload built artifacts
         uses: actions/upload-artifact@v4
         with:
