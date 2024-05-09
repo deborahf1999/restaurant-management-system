@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk-alpine
+FROM alpine
 
 COPY target/menu-management-service.jar app.jar
 
