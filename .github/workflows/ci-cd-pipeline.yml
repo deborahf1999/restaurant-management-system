@@ -93,6 +93,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Load Docker Secrets
+        run: |
+          source secrets.yml
+          echo "DB_URI=$DB_URI"  # For debugging (optional)
+
       - name: Pull image from dockerhub
         run: docker pull deborahf1999/restaurant-management-system:latest
         env:
@@ -102,5 +107,7 @@ jobs:
       - name: Delete old container
         run: docker rm -f menu-management-container
 
-      - name: Run docker container
-        run: docker run -d -p 8050:8050 --name menu-management-container deborahf1999/restaurant-management-system:latest
+      - name: Run the container on EC2
+        run: |
+          ssh ec2-user@35.172.193.69
+          sudo docker run -p 80:8050 --name menu-management-container -e DB_URI="$DB_URI" -e ISSUER_URI="$ISSUER_URI" deborahf1999/restaurant-management-system:latest
