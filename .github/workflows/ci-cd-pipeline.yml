@@ -69,7 +69,7 @@ jobs:
       - name: Build docker image
         run: docker build -t deborahf1999/restaurant-management-system .
         with:
-          secrets:
+          secrets: |
             "MONGO_DB_URI=${{ secrets.DB_URI }}"
             "ISSUER_URI=${{ secrets.ISSUER_URI }}"
 
