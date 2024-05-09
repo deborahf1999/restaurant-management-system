@@ -5,6 +5,7 @@
     <properties>
         <sonar.organization>deborahf1999</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <java.version>17</java.version>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
