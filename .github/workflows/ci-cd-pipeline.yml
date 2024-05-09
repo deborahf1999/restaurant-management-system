@@ -93,14 +93,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Load Docker Secrets
-        run: |
-          source dockersecrets.yml
-          echo "DB_URI=$DB_URI"  # For debugging (optional)
-        working-directory: .github/workflows
-
       - name: Pull image from dockerhub
-        run: docker pull deborahf1999/restaurant-management-system:latest
+        run: |
+          docker pull deborahf1999/restaurant-management-system:latest
+          echo "DB_URI=$DB_URI"  # For debugging (optional)
         env:
           MONGO_DB_URI: ${{ secrets.DB_URI }}
           ISSUER_URI: ${{ secrets.ISSUER_URI }}
