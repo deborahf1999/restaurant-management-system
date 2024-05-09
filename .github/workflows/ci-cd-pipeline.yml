@@ -46,8 +46,7 @@ jobs:
       - name: Upload JAR to S3
         run: |
           aws s3 cp menu-management-service/target/*.jar s3://my-bucket-aws-2/menu-management-service-0.0.1-SNAPSHOT.jar
-          aws java -jar menu-management-service-0.0.1-SNAPSHOT.jar
-
+          aws ec2 run-instances --image-id ami-abcd --count 1 --instance-type t2.micro --key-name my-key --subnet-id subnet-abcd --security-group my-security-group --user-data file://startup.sh --associate-public-ip-address
         env:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
