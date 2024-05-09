@@ -100,4 +100,4 @@ jobs:
         run: docker rm -f menu-management-container
 
       - name: Run the container on EC2
-        run: docker run -d -p 8050:8050 --name menu-management-container deborahf1999/restaurant-management-system:latest
+        run: docker run -p 8050:8050 --name menu-management-container deborahf1999/restaurant-management-system:latest
