@@ -71,10 +71,6 @@ jobs:
         working-directory: ./menu-management-service
       - name: Publish image to dockerhub
         run: docker push deborahf1999/restaurant-management-system:latest
-        env:
-          MONGO_DB_URI: ${{ secrets.DB_URI }}
-          ISSUER_URI: ${{ secrets.ISSUER_URI }}
-        working-directory: ./menu-management-service
 
   deploy:
     name: Deploy
@@ -94,19 +90,10 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Pull image from dockerhub
-        run: |
-          docker pull deborahf1999/restaurant-management-system:latest
-          export MONGO_DB_URI
-          export ISSUER_URI
-          echo MONGO_DB_URI  # For debugging (optional)
-        env:
-          MONGO_DB_URI: ${{ secrets.DB_URI }}
-          ISSUER_URI: ${{ secrets.ISSUER_URI }}
+        run: docker pull deborahf1999/restaurant-management-system:latest
 
       - name: Delete old container
         run: docker rm -f menu-management-container
 
       - name: Run the container on EC2
-        run: |
-          ssh ec2-user@35.172.193.69
-          sudo docker run -p 80:8050 --name menu-management-container deborahf1999/restaurant-management-system:latest
+        run: docker run -p 80:8050 --name menu-management-container deborahf1999/restaurant-management-system:latest
