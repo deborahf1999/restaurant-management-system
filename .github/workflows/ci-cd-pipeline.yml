@@ -71,10 +71,9 @@ jobs:
         working-directory: ./menu-management-service
       - name: Publish image to dockerhub
         run: docker push deborahf1999/restaurant-management-system:latest
-        with:
+        env:
           MONGO_DB_URI: ${{ secrets.DB_URI }}
           ISSUER_URI: ${{ secrets.ISSUER_URI }}
-
         working-directory: ./menu-management-service
 
   deploy:
@@ -96,6 +95,9 @@ jobs:
 
       - name: Pull image from dockerhub
         run: docker pull deborahf1999/restaurant-management-system:latest
+        env:
+          MONGO_DB_URI: ${{ secrets.DB_URI }}
+          ISSUER_URI: ${{ secrets.ISSUER_URI }}
 
       - name: Delete old container
         run: docker rm -f menu-management-container
