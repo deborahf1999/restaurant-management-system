@@ -95,7 +95,7 @@ jobs:
 
       - name: Load Docker Secrets
         run: |
-          source secrets.yml
+          source dockersecrets.yml
           echo "DB_URI=$DB_URI"  # For debugging (optional)
 
       - name: Pull image from dockerhub
