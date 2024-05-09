@@ -80,7 +80,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: user/app:latest
           secrets: |
-            "MONGO_DB_URI=${{ secrets.MONGO_DB_URI }}"
+            "MONGO_DB_URI=${{ secrets.DB_URI }}"
             "ISSUER_URI=${{ secrets.ISSUER_URI }}"
 
       - name: Build docker image
