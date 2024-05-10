@@ -119,4 +119,5 @@ jobs:
 
       - name: Check container logs
         run: |
+          ssh ec2-user@35.172.193.69 "yes" | ssh-keygen -f ~/.ssh/known_hosts
           ssh ec2-user@35.172.193.69 "docker logs menu-management-container"
