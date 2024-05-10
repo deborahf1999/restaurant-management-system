@@ -98,6 +98,6 @@ jobs:
       - name: Run the container on EC2
         run: |
           docker run -p 8050:8050 --name menu-management-container \
-          -e MONGO_DB_URI=$MONGO_DB_SECRET \
-          -e ISSUER_URI=$ISSUER_SECRET \
+          -e MONGO_DB_URI=$MONGO_DB_URI \
+          -e ISSUER_URI=$ISSUER_URI \
           deborahf1999/restaurant-management-system:latest
