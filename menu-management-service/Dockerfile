@@ -11,3 +11,5 @@ FROM alpine AS runtime
 
 RUN echo $DB_URI
 RUN echo $ISSUER_URI
+
+ENTRYPOINT ["java", "-jar", "/app.jar"]
