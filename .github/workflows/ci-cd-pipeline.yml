@@ -79,9 +79,9 @@ jobs:
         with:
           context: .
           platforms: linux/amd64,linux/arm64
-          tags: user/app:latest
+          tags: deborahf1999/app:latest
           secrets: |
-            "DB_URI=${{ secrets.DB_URI }}"   
+            "DB_URI=${{ secrets.DB_URI }}" \   
             "ISSUER_URI=${{ secrets.ISSUER_URI }}"   
 
       - name: Build docker image
