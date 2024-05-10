@@ -2,7 +2,7 @@ name: Run with Environment Variables
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   run-with-env:
