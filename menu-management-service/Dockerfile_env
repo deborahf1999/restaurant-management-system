@@ -1,0 +1,11 @@
+FROM alpine
+
+# Assuming env.vars is located at the same level as the Dockerfile
+COPY env.vars /app/env.vars
+
+# Read and set environment variables from the file
+ENV DB_URI=$(cat /app/env.vars | grep DB_URI | cut -d'=' -f2)
+ENV ISSUER_URI=$(cat /app/env.vars | grep ISSUER_URI | cut -d'=' -f2)
+
+# Replace the following line with the actual image path built in the first workflow
+FROM registry.hub.docker.com/deborahf1999/restaurant-management-system:latest AS runtime
