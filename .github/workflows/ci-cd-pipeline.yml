@@ -78,9 +78,6 @@ jobs:
 
       - name: Build docker image
         run: docker build -t deborahf1999/restaurant-management-system .
-        env:
-          DB_URI: ${{ secrets.DB_URI }}
-          ISSUER_URI: ${{ secrets.ISSUER_URI }}
         working-directory: ./menu-management-service
 
       - name: Publish image to dockerhub
@@ -110,4 +107,4 @@ jobs:
         run: docker rm -f menu-management-container
 
       - name: Run the container on EC2
-        run: docker run -p 8050:8050 --name menu-management-container -e DB_URI -e ISSUER_URI deborahf1999/restaurant-management-system:latest
+        run: docker run -p 8050:8050 --name menu-management-container -e DB_URI=${{ secrets.DB_URI }} -e ISSUER_URI=${{ secrets.ISSUER_URI }} deborahf1999/restaurant-management-system:latest
