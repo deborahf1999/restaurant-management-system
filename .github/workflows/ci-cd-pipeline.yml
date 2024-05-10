@@ -78,8 +78,8 @@ jobs:
       - name: Build docker image
         run: docker build -t deborahf1999/restaurant-management-system .
         env:
-          DB_URI = ${{secrets.DB_URI}}
-          ISSUER_URI = ${{secrets.ISSUER_URI}}
+          MONGO_DB_URI: ${{ secrets.DB_URI }}
+          ISSUER_URI: ${{ secrets.ISSUER_URI }}
         working-directory: ./menu-management-service
 
       - name: Publish image to dockerhub
