@@ -11,7 +11,3 @@ FROM alpine AS runtime
 
 RUN echo $DB_URI
 RUN echo $ISSUER_URI
-
-FROM eclipse-temurin:17-jdk-alpine AS runtime
-
-ENTRYPOINT ["java", "-jar", "/app.jar"]
