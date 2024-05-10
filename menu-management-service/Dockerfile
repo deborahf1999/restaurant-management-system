@@ -6,5 +6,8 @@ EXPOSE 8050
 
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 
+# Multi-stage build for a slimmer runtime image
+FROM alpine AS runtime
+
 RUN echo $DB_URI
 RUN echo $ISSUER_URI
