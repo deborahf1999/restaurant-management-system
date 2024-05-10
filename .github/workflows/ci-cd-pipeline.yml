@@ -77,7 +77,7 @@ jobs:
       - name: Build
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./menu-management-service
           platforms: linux/amd64,linux/arm64
           tags: deborahf1999/app:latest
           secrets: DB_URI=${{ secrets.DB_URI }}, ISSUER_URI=${{ secrets.ISSUER_URI }}
