@@ -90,8 +90,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: deborahf1999/restaurant-management-system:latest
           secrets: |
-            DB_URI=${{ secrets.DB_URI }}, \
-            ISSUER_URI=${{ secrets.ISSUER_URI }}
+            "DB_URI=${{ secrets.DB_URI }}", \
+            "ISSUER_URI=${{ secrets.ISSUER_URI }}"
 
 
   deploy:
