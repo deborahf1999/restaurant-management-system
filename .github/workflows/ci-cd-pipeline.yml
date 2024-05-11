@@ -69,9 +69,6 @@ jobs:
         run: docker build -t deborahf1999/restaurant-management-system .
         working-directory: ./menu-management-service
 
-      - name: Publish image to dockerhub
-        run: docker push deborahf1999/restaurant-management-system:latest
-
       - name: Build
         uses: docker/build-push-action@v5
         with:
@@ -81,6 +78,9 @@ jobs:
           secrets: |
             "DB_URI=${{ secrets.DB_URI }}", \
             "ISSUER_URI=${{ secrets.ISSUER_URI }}"
+
+      - name: Publish image to dockerhub
+        run: docker push deborahf1999/restaurant-management-system:latest
 
   deploy:
     name: Deploy
