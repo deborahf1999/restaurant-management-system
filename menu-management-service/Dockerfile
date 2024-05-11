@@ -2,11 +2,16 @@ FROM alpine
 
 COPY target/menu-management-service.jar app.jar
 
-RUN --mount=type=secret,id=DB_URI \
-  DB_URI=$(cat /run/secrets/DB_URI)
+# Copy the Dockerfile-secrets
+COPY dockerfile-secrets /tmp/dockerfile-secrets
 
-RUN --mount=type=secret,id=ISSUER_URI \
-  ISSUER_URI=$(cat /run/secrets/ISSUER_URI)
+# Build a new stage to inject secrets
+FROM builder:latest AS builder
+
+COPY --from=0 /tmp/dockerfile-secrets .
+
+# Execute the Dockerfile-secrets to inject environment variables
+RUN sh dockerfile-secrets
 
 EXPOSE 8050
 
