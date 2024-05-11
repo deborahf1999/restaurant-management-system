@@ -1,17 +1,6 @@
-FROM eclipse-temurin:17-jdk-alpine
+FROM alpine
 
 COPY target/menu-management-service.jar app.jar
-
-# Copy the Dockerfile-secrets
-COPY dockerfile-secrets /tmp/dockerfile-secrets
-
-# Build a new stage to inject secrets
-FROM dashaun/builder
-
-COPY --from=0 /tmp/dockerfile-secrets .
-
-# Execute the Dockerfile-secrets to inject environment variables
-RUN sh dockerfile-secrets
 
 EXPOSE 8050
 
