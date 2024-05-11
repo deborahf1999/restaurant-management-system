@@ -6,7 +6,7 @@ COPY target/menu-management-service.jar app.jar
 COPY dockerfile-secrets /tmp/dockerfile-secrets
 
 # Build a new stage to inject secrets
-FROM debian:slim
+FROM debian:latest
 
 COPY --from=0 /tmp/dockerfile-secrets .
 
