@@ -5,9 +5,6 @@ COPY target/menu-management-service.jar app.jar
 # Copy the Dockerfile-secrets
 COPY dockerfile-secrets /tmp/dockerfile-secrets
 
-# Build a new stage to inject secrets
-FROM builder:latest AS builder
-
 COPY --from=0 /tmp/dockerfile-secrets .
 
 # Execute the Dockerfile-secrets to inject environment variables
