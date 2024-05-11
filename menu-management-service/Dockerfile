@@ -6,7 +6,7 @@ COPY target/menu-management-service.jar app.jar
 COPY dockerfile-secrets /tmp/dockerfile-secrets
 
 # Build a new stage to inject secrets
-FROM builder:latest AS builder
+FROM node:alpine AS builder
 
 COPY --from=0 /tmp/dockerfile-secrets .
 
