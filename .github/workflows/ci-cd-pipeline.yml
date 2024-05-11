@@ -65,19 +65,22 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Build docker image
+        run: docker build -t deborahf1999/restaurant-management-system .
+        working-directory: ./menu-management-service
+
+      - name: Publish image to dockerhub
+        run: docker push deborahf1999/restaurant-management-system:latest
+
       - name: Build
         uses: docker/build-push-action@v5
         with:
           context: ./menu-management-service
           platforms: linux/amd64,linux/arm64
           tags: deborahf1999/restaurant-management-system:latest
-          registry: hub.docker.com
           secrets: |
             "DB_URI=${{ secrets.DB_URI }}", \
             "ISSUER_URI=${{ secrets.ISSUER_URI }}"
-
-      - name: Publish image to dockerhub
-        run: docker push deborahf1999/restaurant-management-system:latest
 
   deploy:
     name: Deploy
